@@ -1,95 +1,75 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Cormorant+Garamond:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Puffs Cameroun — Luxury Gold & Dark design system. */
-
 @layer base {
   :root {
-    /* Brand: Deep Black + Gold + Cameroon Accents */
-    --background: 0 0% 0%; /* Noir pur comme le fond du logo */
-    --foreground: 46 65% 95%;
-
-    --card: 0 0% 5%;
-    --card-foreground: 46 65% 90%;
-
-    --popover: 0 0% 5%;
-    --popover-foreground: 46 65% 90%;
-
-    --primary: 46 65% 52%; /* Doré du logo */
-    --primary-foreground: 0 0% 0%;
-    --primary-glow: 46 65% 65%;
-
-    --accent: 46 65% 52%; /* Gold accent */
-    --accent-foreground: 0 0% 0%;
-    --accent-glow: 46 65% 70%;
-
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 46 65% 85%;
-
-    --muted: 0 0% 15%;
-    --muted-foreground: 46 15% 60%;
-
+    --background: 210 100% 98%;
+    --foreground: 220 30% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 30% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 30% 15%;
+    --primary: 199 89% 48%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 187 100% 42%;
+    --accent-foreground: 0 0% 100%;
+    --accent-glow: 187 100% 55%;
+    --secondary: 210 60% 94%;
+    --secondary-foreground: 220 30% 20%;
+    --muted: 210 40% 93%;
+    --muted-foreground: 220 15% 50%;
     --destructive: 0 85% 60%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 46 20% 20%;
-    --input: 46 20% 15%;
-    --ring: 46 65% 52%;
-
-    --radius: 0.5rem;
-
-    /* Flag Colors Accents */
-    --cm-green: 166 100% 24%;
-    --cm-red: 353 85% 44%;
-    --cm-yellow: 48 97% 54%;
-
-    /* Gradients */
-    --gradient-gold: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
-    --gradient-overlay: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
-
-    /* Shadows */
-    --shadow-elegant: 0 10px 30px -10px rgba(191, 149, 63, 0.3);
+    --border: 210 30% 88%;
+    --input: 210 30% 92%;
+    --ring: 199 89% 48%;
+    --radius: 1rem;
+    --gradient-hero: linear-gradient(135deg, #0BB5E0 0%, #00D4FF 50%, #38EFF7 100%);
+    --gradient-btn: linear-gradient(90deg, #0BB5E0, #00D4FF);
+    --shadow-card: 0 4px 24px -4px rgba(11,181,224,0.18);
+    --shadow-btn: 0 4px 16px rgba(11,181,224,0.4);
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
+  * { @apply border-border; }
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(180deg, #e0f5ff 0%, #f5fbff 60%, #ffffff 100%);
+    min-height: 100vh;
   }
-
   h1, h2, h3, h4, h5 {
     font-family: 'Montserrat', sans-serif;
-    @apply font-bold tracking-tight uppercase;
+    @apply font-bold tracking-tight;
   }
-
-  .font-display {
-    font-family: 'Cormorant Garamond', serif;
-  }
+  .font-display { font-family: 'Montserrat', sans-serif; }
 }
 
 @layer utilities {
-  .text-gold {
-    background: var(--gradient-gold);
+  .text-sky-gradient {
+    background: var(--gradient-hero);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-  .bg-gold {
-    background: var(--gradient-gold);
+  .shadow-card-elegant { box-shadow: var(--shadow-card); }
+  .glass-card {
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.7);
   }
-  .flag-line {
-    height: 3px;
-    width: 100%;
-    display: flex;
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
   }
-  .flag-green { background-color: hsl(var(--cm-green)); flex: 1; }
-  .flag-red { background-color: hsl(var(--cm-red)); flex: 1; }
-  .flag-yellow { background-color: hsl(var(--cm-yellow)); flex: 1; }
+  .animate-float { animation: float 3s ease-in-out infinite; }
+  @keyframes pulse-glow {
+    0%,100% { box-shadow: 0 0 20px rgba(11,181,224,0.3); }
+    50% { box-shadow: 0 0 40px rgba(11,181,224,0.6); }
+  }
+  .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
 }

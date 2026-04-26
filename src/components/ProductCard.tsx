@@ -1,9 +1,6 @@
 import { motion } from "framer-motion";
-import { MessageCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { formatPrice, buildWhatsappLink } from "@/lib/format";
+import { Eye, Star, Tag } from "lucide-react";
+import { formatPrice } from "@/lib/format";
 
 export type Product = {
   id: string;
@@ -20,73 +17,176 @@ type Props = {
   whatsappNumber: string;
   shopName: string;
   index?: number;
+  onOpen: (product: Product) => void;
 };
 
-export const ProductCard = ({ product, whatsappNumber, shopName, index = 0 }: Props) => {
-  const message = `Bonjour ${shopName}, je suis intéressé(e) par "${product.title}" affiché à ${formatPrice(
-    product.price,
-    product.currency,
-  )}. Est-il toujours disponible ?`;
-  const link = buildWhatsappLink(whatsappNumber, message);
-
+export const ProductCard = ({ product, index = 0, onOpen }: Props) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: Math.min(index * 0.05, 0.4), ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.6, delay: Math.min(index * 0.08, 0.4), ease: [0.16, 1, 0.3, 1] }}
+      onClick={() => onOpen(product)}
     >
-      <Card className="group overflow-hidden border-border/60 bg-card shadow-card-elegant transition-elegant hover:-translate-y-1 hover:shadow-elegant">
-        <div className="relative aspect-[4/5] overflow-hidden bg-muted">
+      <div
+        className="group"
+        style={{
+          borderRadius: 20,
+          background: "white",
+          boxShadow: "0 4px 24px rgba(11,181,224,0.1)",
+          border: "1.5px solid rgba(11,181,224,0.1)",
+          overflow: "hidden",
+          cursor: "pointer",
+          transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)",
+        }}
+        onMouseEnter={e => {
+          const el = e.currentTarget as HTMLElement;
+          el.style.transform = "translateY(-8px) scale(1.01)";
+          el.style.boxShadow = "0 20px 48px rgba(11,181,224,0.22)";
+          el.style.border = "1.5px solid rgba(11,181,224,0.35)";
+        }}
+        onMouseLeave={e => {
+          const el = e.currentTarget as HTMLElement;
+          el.style.transform = "translateY(0) scale(1)";
+          el.style.boxShadow = "0 4px 24px rgba(11,181,224,0.1)";
+          el.style.border = "1.5px solid rgba(11,181,224,0.1)";
+        }}
+      >
+        {/* Image */}
+        <div style={{
+          position: "relative",
+          aspectRatio: "4/5",
+          overflow: "hidden",
+          background: "linear-gradient(135deg, #e8f8ff, #d0f0ff)",
+        }}>
           {product.image_url ? (
             <img
               src={product.image_url}
               alt={product.title}
               loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                transition: "transform 0.6s ease",
+              }}
+              className="group-hover:scale-105"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center text-muted-foreground">
-              Sans image
+            <div style={{
+              display: "flex", height: "100%", width: "100%",
+              alignItems: "center", justifyContent: "center",
+              flexDirection: "column", gap: 8,
+            }}>
+              <Tag size={40} color="#0BB5E0" strokeWidth={1.5} />
+              <span style={{ color: "#9bbcc7", fontSize: "0.8rem", fontFamily: "'Poppins',sans-serif" }}>
+                Sans image
+              </span>
             </div>
           )}
+
+          {/* Category badge */}
           {product.category && (
-            <Badge className="absolute left-3 top-3 bg-background/90 text-foreground hover:bg-background/90">
+            <div style={{
+              position: "absolute", left: 12, top: 12,
+              background: "linear-gradient(90deg, #0BB5E0, #00D4FF)",
+              color: "white",
+              borderRadius: "999px",
+              padding: "4px 12px",
+              fontSize: "0.68rem",
+              fontFamily: "'Montserrat',sans-serif",
+              fontWeight: 700,
+              letterSpacing: "0.05em",
+              boxShadow: "0 2px 8px rgba(11,181,224,0.4)",
+              display: "flex", alignItems: "center", gap: 4,
+            }}>
+              <Tag size={10} />
               {product.category}
-            </Badge>
-          )}
-        </div>
-        <div className="p-5 space-y-3" style={{backgroundColor : "#fff"}}>
-          <div>
-            <h3 className="font-display text-xl font-semibold text-primary leading-tight">
-              {product.title}
-            </h3>
-            {product.description && (
-              <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                {product.description}
-              </p>
-            )}
-          </div>
-          <div className="flex items-end justify-between gap-3 pt-2">
-            <div>
-              <p className="text-xs uppercase tracking-wider text-muted-foreground">Prix</p>
-              <p className="font-display text-2xl font-semibold text-accent">
-                {formatPrice(product.price, product.currency)}
-              </p>
             </div>
-            <Button
-              asChild
-              size="sm"
-              className="bg-accent text-accent-foreground hover:bg-accent-glow shadow-accent-glow"
-            >
-              <a href={link} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="mr-2 h-4 w-4" />
-                WhatsApp
-              </a>
-            </Button>
+          )}
+
+          {/* Hover overlay — "Voir détails" */}
+          <div
+            className="group-hover:opacity-100"
+            style={{
+              position: "absolute", inset: 0,
+              background: "rgba(11,181,224,0.18)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              opacity: 0,
+              transition: "opacity 0.35s ease",
+            }}
+          >
+            <div style={{
+              display: "flex", alignItems: "center", gap: 8,
+              background: "rgba(255,255,255,0.92)",
+              backdropFilter: "blur(8px)",
+              borderRadius: "999px",
+              padding: "10px 22px",
+              fontFamily: "'Montserrat',sans-serif",
+              fontWeight: 700,
+              fontSize: "0.85rem",
+              color: "#0BB5E0",
+              boxShadow: "0 4px 16px rgba(0,0,0,0.1)",
+            }}>
+              <Eye size={16} />
+              Voir les détails
+            </div>
           </div>
         </div>
-      </Card>
+
+        {/* Info */}
+        <div style={{ padding: "1.1rem 1.25rem" }}>
+          {/* Stars */}
+          <div style={{ display: "flex", gap: 2, marginBottom: 6 }}>
+            {[1,2,3,4,5].map(s => (
+              <Star key={s} size={11} style={{ fill: "#FFD700", color: "#FFD700" }} />
+            ))}
+          </div>
+
+          <h3 style={{
+            fontFamily: "'Poppins',sans-serif",
+            fontWeight: 700,
+            fontSize: "0.95rem",
+            color: "#0d2d3d",
+            lineHeight: 1.3,
+            marginBottom: 8,
+          }}>
+            {product.title}
+          </h3>
+
+          <div style={{
+            display: "flex", alignItems: "center",
+            justifyContent: "space-between", gap: 8,
+          }}>
+            <p style={{
+              fontFamily: "'Montserrat',sans-serif",
+              fontWeight: 800,
+              fontSize: "1.2rem",
+              background: "linear-gradient(90deg, #0BB5E0, #00D4FF)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}>
+              {formatPrice(product.price, product.currency)}
+            </p>
+
+            <div style={{
+              display: "flex", alignItems: "center", gap: 5,
+              background: "linear-gradient(135deg, #e0f8ff, #c8f0ff)",
+              color: "#0BB5E0",
+              borderRadius: "999px",
+              padding: "5px 12px",
+              fontSize: "0.72rem",
+              fontFamily: "'Montserrat',sans-serif",
+              fontWeight: 700,
+            }}>
+              <Eye size={12} />
+              Détails
+            </div>
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 };
