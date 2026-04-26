@@ -1,102 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Cormorant+Garamond:wght@600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Les Vagues — Corporate luxury design system. All colors HSL. */
-
+/* Puffs Cameroun — Luxury Gold & Dark design system. */
 
 @layer base {
   :root {
-    /* Brand: deep navy + warm copper/gold */
-    --background: 36 33% 97%;
-    --foreground: 218 39% 11%;
+    /* Brand: Deep Black + Gold + Cameroon Accents */
+    --background: 0 0% 0%; /* Noir pur comme le fond du logo */
+    --foreground: 46 65% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 218 39% 11%;
+    --card: 0 0% 5%;
+    --card-foreground: 46 65% 90%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 218 39% 11%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 46 65% 90%;
 
-    --primary: 218 45% 14%;
-    --primary-foreground: 36 33% 97%;
-    --primary-glow: 218 45% 24%;
+    --primary: 46 65% 52%; /* Doré du logo */
+    --primary-foreground: 0 0% 0%;
+    --primary-glow: 46 65% 65%;
 
-    --accent: 28 70% 52%;
-    --accent-foreground: 0 0% 100%;
-    --accent-glow: 32 80% 62%;
+    --accent: 46 65% 52%; /* Gold accent */
+    --accent-foreground: 0 0% 0%;
+    --accent-glow: 46 65% 70%;
 
-    --secondary: 36 25% 92%;
-    --secondary-foreground: 218 45% 14%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 46 65% 85%;
 
-    --muted: 36 20% 94%;
-    --muted-foreground: 218 15% 40%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 46 15% 60%;
 
-    --destructive: 0 75% 50%;
+    --destructive: 0 85% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 36 20% 88%;
-    --input: 36 20% 88%;
-    --ring: 218 45% 14%;
+    --border: 46 20% 20%;
+    --input: 46 20% 15%;
+    --ring: 46 65% 52%;
 
-    --radius: 0.25rem;
+    --radius: 0.5rem;
+
+    /* Flag Colors Accents */
+    --cm-green: 166 100% 24%;
+    --cm-red: 353 85% 44%;
+    --cm-yellow: 48 97% 54%;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(218 45% 10%) 0%, hsl(218 45% 18%) 60%, hsl(28 70% 30%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
-    --gradient-overlay: linear-gradient(180deg, hsl(218 45% 8% / 0.85) 0%, hsl(218 45% 8% / 0.55) 100%);
+    --gradient-gold: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    --gradient-overlay: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
 
     /* Shadows */
-    --shadow-elegant: 0 25px 60px -20px hsl(218 45% 14% / 0.25);
-    --shadow-card: 0 4px 20px -8px hsl(218 45% 14% / 0.12);
-    --shadow-accent: 0 12px 40px -12px hsl(28 70% 52% / 0.5);
-
-    /* Transitions */
-    --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-elegant: cubic-bezier(0.16, 1, 0.3, 1);
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 218 45% 8%;
-    --foreground: 36 33% 97%;
-    --card: 218 40% 12%;
-    --card-foreground: 36 33% 97%;
-    --popover: 218 40% 12%;
-    --popover-foreground: 36 33% 97%;
-    --primary: 36 33% 97%;
-    --primary-foreground: 218 45% 14%;
-    --primary-glow: 36 25% 85%;
-    --accent: 28 70% 55%;
-    --accent-foreground: 0 0% 100%;
-    --accent-glow: 32 80% 65%;
-    --secondary: 218 35% 18%;
-    --secondary-foreground: 36 33% 97%;
-    --muted: 218 35% 16%;
-    --muted-foreground: 36 15% 65%;
-    --destructive: 0 70% 45%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 218 30% 22%;
-    --input: 218 30% 22%;
-    --ring: 28 70% 55%;
-
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --shadow-elegant: 0 10px 30px -10px rgba(191, 149, 63, 0.3);
   }
 }
 
@@ -106,22 +61,35 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-feature-settings: "ss01", "cv11";
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Montserrat', sans-serif;
   }
 
   h1, h2, h3, h4, h5 {
-    @apply font-display tracking-tight;
+    font-family: 'Montserrat', sans-serif;
+    @apply font-bold tracking-tight uppercase;
+  }
+
+  .font-display {
+    font-family: 'Cormorant Garamond', serif;
   }
 }
 
 @layer utilities {
-  .text-balance { text-wrap: balance; }
-  .gradient-hero { background: var(--gradient-hero); }
-  .gradient-accent { background: var(--gradient-accent); }
-  .gradient-overlay { background: var(--gradient-overlay); }
-  .shadow-elegant { box-shadow: var(--shadow-elegant); }
-  .shadow-card-elegant { box-shadow: var(--shadow-card); }
-  .shadow-accent-glow { box-shadow: var(--shadow-accent); }
-  .transition-elegant { transition: all 0.5s var(--transition-elegant); }
+  .text-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .bg-gold {
+    background: var(--gradient-gold);
+  }
+  .flag-line {
+    height: 3px;
+    width: 100%;
+    display: flex;
+  }
+  .flag-green { background-color: hsl(var(--cm-green)); flex: 1; }
+  .flag-red { background-color: hsl(var(--cm-red)); flex: 1; }
+  .flag-yellow { background-color: hsl(var(--cm-yellow)); flex: 1; }
 }

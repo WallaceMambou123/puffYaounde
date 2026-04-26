@@ -55,50 +55,58 @@ const Index = () => {
       <SiteHeader />
 
       {/* Hero */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden h-[70vh] flex items-center" style={{ height: "600px" }}>
         <div className="absolute inset-0">
           <img
             src={heroImage}
             alt=""
-            width={1920}
-            height={1080}
             className="h-full w-full object-cover"
           />
-          <div className="absolute inset-0 gradient-overlay" />
+          <div className="absolute inset-0 bg-black/30" /> {/* Un voile très léger pour la lecture */}
         </div>
-        <div className="container relative py-24 md:py-36 text-primary-foreground">
+        <div className="container relative text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-3xl"
+            className="max-w-4xl mx-auto"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/5 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-primary-foreground/80 backdrop-blur">
-              <Sparkles className="h-3.5 w-3.5" />
-              Boutique vitrine
+            <div className="flex flex-col items-center mb-8">
+              <motion.img
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2, duration: 0.8 }}
+                src="/logo.png"
+                alt="Puffs Cameroun Logo"
+                className="h-32 md:h-48 w-auto object-contain mb-8 drop-shadow-[0_0_30px_rgba(212,175,55,0.3)]"
+              />
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs uppercase tracking-[0.3em] text-white backdrop-blur">
+                <Sparkles className="h-3.5 w-3.5" />
+                L'élégance à la camerounaise
+              </div>
             </div>
-            <h1 className="mt-6 font-display text-5xl md:text-7xl font-semibold leading-[1.05] text-balance">
+            <h1 className="text-gold text-5xl md:text-8xl font-bold leading-[1.05] tracking-tighter mb-8 drop-shadow-2xl">
               {shopName}
             </h1>
-            <p className="mt-6 max-w-xl text-lg md:text-xl text-primary-foreground/85 text-balance">
-              {tagline}. Découvrez notre sélection et contactez-nous directement sur WhatsApp pour toute information.
+            <p className="max-w-2xl mx-auto text-lg md:text-xl text-white mb-12 font-medium drop-shadow-md">
+              {tagline}. Découvrez une sélection premium d'articles authentiques.
             </p>
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="flex flex-wrap justify-center gap-4">
               <Button
                 size="lg"
-                className="bg-accent text-accent-foreground hover:bg-accent-glow shadow-accent-glow"
+                className="bg-gold text-black hover:scale-105 transition-transform px-8 font-bold shadow-lg"
                 onClick={() => document.getElementById("collection")?.scrollIntoView({ behavior: "smooth" })}
               >
-                Voir la collection
+                Explorer la collection
               </Button>
               <Button
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                className="border-primary/50 text-primary hover:bg-primary/10 px-8"
               >
                 <a href={`https://wa.me/${whatsapp.replace(/[^\d]/g, "")}`} target="_blank" rel="noopener noreferrer">
-                  Nous contacter
+                  Contact WhatsApp
                 </a>
               </Button>
             </div>
@@ -107,21 +115,21 @@ const Index = () => {
       </section>
 
       {/* Collection */}
-      <section id="collection" className="container py-20">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+      <section id="collection" className="container py-24">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 border-l-4 border-gold pl-6">
           <div>
-            <p className="text-xs uppercase tracking-[0.25em] text-accent font-semibold">Notre collection</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl text-primary">
-              Articles disponibles
+            <p className="text-xs uppercase tracking-[0.4em] text-primary font-bold mb-2">Prestige & Qualité</p>
+            <h2 className="text-4xl md:text-6xl font-bold text-foreground tracking-tight">
+              Nos Articles
             </h2>
           </div>
-          <div className="relative w-full md:w-80">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <div className="relative w-full md:w-96">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-primary/50" />
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Rechercher un article…"
-              className="pl-9 h-11"
+              placeholder="Chercher une puff, un accessoire..."
+              className="pl-12 h-14 bg-white border-primary/20 text-foreground rounded-xl focus:border-primary shadow-sm"
             />
           </div>
         </div>
