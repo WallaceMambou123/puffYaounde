@@ -51,7 +51,7 @@ const Index = () => {
   const whatsapp = settings?.whatsapp_number ?? "+221000000000";
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background" style={{backgroundColor :" #ff12"}}>
       <SiteHeader />
 
       {/* Hero */}

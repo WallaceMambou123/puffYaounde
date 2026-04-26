@@ -56,7 +56,7 @@ export const ProductCard = ({ product, whatsappNumber, shopName, index = 0 }: Pr
             </Badge>
           )}
         </div>
-        <div className="p-5 space-y-3">
+        <div className="p-5 space-y-3" style={{backgroundColor : "#fff"}}>
           <div>
             <h3 className="font-display text-xl font-semibold text-primary leading-tight">
               {product.title}
