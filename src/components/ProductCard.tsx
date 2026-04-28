@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Eye, Star, Tag } from "lucide-react";
+import { Star, ShoppingCart } from "lucide-react";
 import { formatPrice } from "@/lib/format";
 
 export type Product = {
@@ -23,170 +23,56 @@ type Props = {
 export const ProductCard = ({ product, index = 0, onOpen }: Props) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.6, delay: Math.min(index * 0.08, 0.4), ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: Math.min(index * 0.1, 0.4) }}
       onClick={() => onOpen(product)}
+      className="group cursor-pointer"
     >
-      <div
-        className="group"
-        style={{
-          borderRadius: 20,
-          background: "white",
-          boxShadow: "0 4px 24px rgba(11,181,224,0.1)",
-          border: "1.5px solid rgba(11,181,224,0.1)",
-          overflow: "hidden",
-          cursor: "pointer",
-          transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)",
-        }}
-        onMouseEnter={e => {
-          const el = e.currentTarget as HTMLElement;
-          el.style.transform = "translateY(-8px) scale(1.01)";
-          el.style.boxShadow = "0 20px 48px rgba(11,181,224,0.22)";
-          el.style.border = "1.5px solid rgba(11,181,224,0.35)";
-        }}
-        onMouseLeave={e => {
-          const el = e.currentTarget as HTMLElement;
-          el.style.transform = "translateY(0) scale(1)";
-          el.style.boxShadow = "0 4px 24px rgba(11,181,224,0.1)";
-          el.style.border = "1.5px solid rgba(11,181,224,0.1)";
-        }}
-      >
-        {/* Image */}
-        <div style={{
-          position: "relative",
-          aspectRatio: "4/5",
-          overflow: "hidden",
-          background: "linear-gradient(135deg, #e8f8ff, #d0f0ff)",
-        }}>
+      <div className="bg-white rounded-3xl overflow-hidden shadow-premium group-hover:shadow-gold transition-all duration-500 border border-transparent group-hover:border-primary/20">
+        {/* Image Container */}
+        <div className="aspect-square bg-[#F8F8F8] relative flex items-center justify-center p-8">
+          <div className="absolute inset-0 bg-gradient-to-tr from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
           {product.image_url ? (
             <img
               src={product.image_url}
               alt={product.title}
-              loading="lazy"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                transition: "transform 0.6s ease",
-              }}
-              className="group-hover:scale-105"
+              className="w-full h-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-110"
             />
           ) : (
-            <div style={{
-              display: "flex", height: "100%", width: "100%",
-              alignItems: "center", justifyContent: "center",
-              flexDirection: "column", gap: 8,
-            }}>
-              <Tag size={40} color="#0BB5E0" strokeWidth={1.5} />
-              <span style={{ color: "#9bbcc7", fontSize: "0.8rem", fontFamily: "'Poppins',sans-serif" }}>
-                Sans image
-              </span>
-            </div>
+            <ShoppingCart size={48} className="text-black/5" />
           )}
 
-          {/* Category badge */}
+          {/* New/Category Badge */}
           {product.category && (
-            <div style={{
-              position: "absolute", left: 12, top: 12,
-              background: "linear-gradient(90deg, #0BB5E0, #00D4FF)",
-              color: "white",
-              borderRadius: "999px",
-              padding: "4px 12px",
-              fontSize: "0.68rem",
-              fontFamily: "'Montserrat',sans-serif",
-              fontWeight: 700,
-              letterSpacing: "0.05em",
-              boxShadow: "0 2px 8px rgba(11,181,224,0.4)",
-              display: "flex", alignItems: "center", gap: 4,
-            }}>
-              <Tag size={10} />
+            <div className="absolute top-4 left-4 bg-primary text-black text-[9px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">
               {product.category}
             </div>
           )}
-
-          {/* Hover overlay — "Voir détails" */}
-          <div
-            className="group-hover:opacity-100"
-            style={{
-              position: "absolute", inset: 0,
-              background: "rgba(11,181,224,0.18)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              opacity: 0,
-              transition: "opacity 0.35s ease",
-            }}
-          >
-            <div style={{
-              display: "flex", alignItems: "center", gap: 8,
-              background: "rgba(255,255,255,0.92)",
-              backdropFilter: "blur(8px)",
-              borderRadius: "999px",
-              padding: "10px 22px",
-              fontFamily: "'Montserrat',sans-serif",
-              fontWeight: 700,
-              fontSize: "0.85rem",
-              color: "#0BB5E0",
-              boxShadow: "0 4px 16px rgba(0,0,0,0.1)",
-            }}>
-              <Eye size={16} />
-              Voir les détails
-            </div>
-          </div>
         </div>
 
-        {/* Info */}
-        <div style={{ padding: "1.1rem 1.25rem" }}>
-          {/* Stars */}
-          <div style={{ display: "flex", gap: 2, marginBottom: 6 }}>
-            {[1,2,3,4,5].map(s => (
-              <Star key={s} size={11} style={{ fill: "#FFD700", color: "#FFD700" }} />
+        {/* Content */}
+        <div className="p-6">
+          <div className="flex gap-1 mb-3">
+            {[1, 2, 3, 4, 5].map(s => (
+              <Star key={s} size={12} className="fill-primary text-primary" />
             ))}
           </div>
 
-          <h3 style={{
-            fontFamily: "'Poppins',sans-serif",
-            fontWeight: 700,
-            fontSize: "0.95rem",
-            color: "#0d2d3d",
-            lineHeight: 1.3,
-            marginBottom: 8,
-          }}>
+          <h3 className="text-[#0D0D0D] font-black text-sm uppercase tracking-tight mb-2 line-clamp-1">
             {product.title}
           </h3>
 
-          <div style={{
-            display: "flex", alignItems: "center",
-            justifyContent: "space-between", gap: 8,
-          }}>
-            <p style={{
-              fontFamily: "'Montserrat',sans-serif",
-              fontWeight: 800,
-              fontSize: "1.2rem",
-              background: "linear-gradient(90deg, #0BB5E0, #00D4FF)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}>
-              {formatPrice(product.price, product.currency)}
-            </p>
+          <p className="text-primary font-black text-lg mb-6 tracking-tighter">
+            {formatPrice(product.price, product.currency)}
+          </p>
 
-            <div style={{
-              display: "flex", alignItems: "center", gap: 5,
-              background: "linear-gradient(135deg, #e0f8ff, #c8f0ff)",
-              color: "#0BB5E0",
-              borderRadius: "999px",
-              padding: "5px 12px",
-              fontSize: "0.72rem",
-              fontFamily: "'Montserrat',sans-serif",
-              fontWeight: 700,
-            }}>
-              <Eye size={12} />
-              Détails
-            </div>
-          </div>
+          <button className="w-full bg-black text-white py-4 rounded-xl text-[11px] font-black uppercase tracking-[0.2em] transition-all group-hover:bg-primary group-hover:text-black shadow-lg shadow-black/10 group-hover:shadow-primary/30">
+            Commander
+          </button>
         </div>
       </div>
     </motion.div>
   );
-};
+};

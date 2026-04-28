@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,31 +6,31 @@
 
 @layer base {
   :root {
-    --background: 210 100% 98%;
-    --foreground: 220 30% 15%;
-    --card: 0 0% 100%;
-    --card-foreground: 220 30% 15%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 30% 15%;
-    --primary: 199 89% 48%;
-    --primary-foreground: 0 0% 100%;
-    --accent: 187 100% 42%;
-    --accent-foreground: 0 0% 100%;
-    --accent-glow: 187 100% 55%;
-    --secondary: 210 60% 94%;
-    --secondary-foreground: 220 30% 20%;
-    --muted: 210 40% 93%;
-    --muted-foreground: 220 15% 50%;
-    --destructive: 0 85% 60%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 43 65% 53%; /* #D4AF37 - Gold */
+    --primary-foreground: 0 0% 0%;
+    --accent: 39 49% 56%; /* #C5A059 */
+    --accent-foreground: 0 0% 0%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 70%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 210 30% 88%;
-    --input: 210 30% 92%;
-    --ring: 199 89% 48%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 43 65% 53%;
     --radius: 1rem;
-    --gradient-hero: linear-gradient(135deg, #0BB5E0 0%, #00D4FF 50%, #38EFF7 100%);
-    --gradient-btn: linear-gradient(90deg, #0BB5E0, #00D4FF);
-    --shadow-card: 0 4px 24px -4px rgba(11,181,224,0.18);
-    --shadow-btn: 0 4px 16px rgba(11,181,224,0.4);
+
+    --gold-gradient: linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #B8860B 100%);
+    --dark-gradient: linear-gradient(180deg, #0A0A0A 0%, #141414 100%);
+    --shadow-premium: 0 10px 40px -10px rgba(0,0,0,0.5);
+    --shadow-gold: 0 4px 20px rgba(212, 175, 55, 0.15);
   }
 }
 
@@ -39,37 +39,40 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(180deg, #e0f5ff 0%, #f5fbff 60%, #ffffff 100%);
     min-height: 100vh;
   }
   h1, h2, h3, h4, h5 {
     font-family: 'Montserrat', sans-serif;
     @apply font-bold tracking-tight;
   }
-  .font-display { font-family: 'Montserrat', sans-serif; }
 }
 
 @layer utilities {
-  .text-sky-gradient {
-    background: var(--gradient-hero);
+  .text-gold-gradient {
+    background: var(--gold-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  .shadow-card-elegant { box-shadow: var(--shadow-card); }
-  .glass-card {
-    background: rgba(255,255,255,0.9);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.7);
+  .bg-gold-gradient {
+    background: var(--gold-gradient);
   }
-  @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+  .glass-dark {
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
-  .animate-float { animation: float 3s ease-in-out infinite; }
-  @keyframes pulse-glow {
-    0%,100% { box-shadow: 0 0 20px rgba(11,181,224,0.3); }
-    50% { box-shadow: 0 0 40px rgba(11,181,224,0.6); }
+  .border-gold {
+    border: 1px solid rgba(212, 175, 55, 0.3);
   }
-  .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
-}
+  
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
+  }
+}
